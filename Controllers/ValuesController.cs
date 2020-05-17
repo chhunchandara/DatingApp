@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="AIAS,AIA")]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -25,6 +26,9 @@ namespace DatingApp.API.Controllers
         
         [HttpGet]
         public async Task<IActionResult> GetValues(){
+
+            Console.WriteLine("This is IP : "+ Request.HttpContext.Connection.RemoteIpAddress);
+
             var values = await _context.values.ToListAsync();
             return Ok(values);
         }
@@ -36,7 +40,7 @@ namespace DatingApp.API.Controllers
         {
             var value = await _context.values.FirstOrDefaultAsync(x => x.Id == id);
             return Ok(value);
-        } 
+        }
 
         // POST api/values
         [HttpPost]

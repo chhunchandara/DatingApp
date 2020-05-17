@@ -23,6 +23,11 @@ namespace DatingApp.API.Data
             if(!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
+            //remove password
+            user.PasswordHash = null;
+            user.PasswordSalt = null;
+
+            
             //auth successful
             return user;
             
