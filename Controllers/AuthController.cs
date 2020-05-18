@@ -58,11 +58,10 @@ namespace DatingApp.API.Controllers
                 {
                     new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                     new Claim(ClaimTypes.Name, userFromRepo.Username),
-                    new Claim(ClaimTypes.Role, "AIA")
                 }),
                 Expires = DateTime.Now.AddDays(1),
-                Issuer = "http://localhost:5000",
-                Audience = "https://yourapplication.example.com",
+                //Issuer = "http://localhost:5000",
+                //Audience = "https://yourapplication.example.com",
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
             };
 

@@ -10,7 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
-    [Authorize(Roles="AIAS,AIA")]
+    [Authorize]
+    [ServiceFilter(typeof(CustomActionFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -27,7 +28,7 @@ namespace DatingApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetValues(){
 
-            Console.WriteLine("This is IP : "+ Request.HttpContext.Connection.RemoteIpAddress);
+ //           Console.WriteLine("This is IP : "+ Request.HttpContext.Connection.RemoteIpAddress);
 
             var values = await _context.values.ToListAsync();
             return Ok(values);

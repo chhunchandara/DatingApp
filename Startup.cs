@@ -33,6 +33,7 @@ namespace DatingApp.API
         {
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<CustomActionFilter>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
@@ -40,11 +41,14 @@ namespace DatingApp.API
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                        ValidateIssuer = true, //Default value is true, Issuer URL must be set in JWT option to be encapted in token. If value = false then middleware does not check
-                        ValidIssuer = "http://localhost:5000",
-                        ValidateAudience =true, //Default value is true, and must be set the Audience 
-                        ValidAudience = "https://yourapplication.example.com",
+                        ValidateIssuer=false,
+                        ValidateAudience = false,
                         ValidateLifetime = true //This boolean only applies to default lifetime validation. If LifetimeValidator is set, it will be called regardless of whether this property is true or false.
+                        //ValidateIssuer = true, //Default value is true, Issuer URL must be set in JWT option to be encapted in token. If value = false then middleware does not check
+                        //ValidIssuer = "http://localhost:5000",
+                        //ValidateAudience =true, //Default value is true, and must be set the Audience 
+                        //ValidAudience = "https://yourapplication.example.com",
+                        
                     };
                 });
         }
