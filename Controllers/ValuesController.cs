@@ -28,14 +28,13 @@ namespace DatingApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetValues(){
 
- //           Console.WriteLine("This is IP : "+ Request.HttpContext.Connection.RemoteIpAddress);
-
+            //Console.WriteLine("This is IP : "+ Request.HttpContext.Connection.RemoteIpAddress)
             var values = await _context.values.ToListAsync();
             return Ok(values);
         }
         
-        // GET api/values/5
-        [AllowAnonymous]
+        //GET api/values/5
+        //[AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValues(int id)
         {
@@ -43,7 +42,7 @@ namespace DatingApp.API.Controllers
             return Ok(value);
         }
 
-        // POST api/values
+        //POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
         {
